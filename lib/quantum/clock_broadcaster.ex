@@ -48,7 +48,7 @@ defmodule Quantum.ClockBroadcaster do
       end
       |> NaiveDateTime.truncate(:second)
       # Roll back one second since handle_tick will start at `now + 1`.
-      |> NaiveDateTime.add(-1, :second)
+      # |> NaiveDateTime.add(-1, :second)
 
     :timer.send_interval(1000, :tick)
 
