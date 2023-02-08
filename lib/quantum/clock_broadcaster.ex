@@ -43,12 +43,10 @@ defmodule Quantum.ClockBroadcaster do
       |> GenServer.whereis()
       |> storage.last_execution_date()
       |> case do
-        :unknown -> start_time
+        :unknown -> NaiveDateTime.add(start_time, -1, :second)
         date -> date
       end
       |> NaiveDateTime.truncate(:second)
-      # Roll back one second since handle_tick will start at `now + 1`.
-      |> NaiveDateTime.add(-1, :second)
 
     :timer.send_interval(1000, :tick)
 
